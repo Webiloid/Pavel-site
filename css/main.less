@@ -1,0 +1,61 @@
+// out: main.css, compress: true, sourcemap: false,
+
+@import "mixins";
+
+
+body, html {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+.wrapper {
+  .wrapper();
+}
+
+.clearfix {
+  .clearfix();
+}
+
+.header {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  &__logo {
+    float: left;
+  }
+
+
+}
+
+.navigation {
+  float: right;
+
+  &__list {
+    float: left;
+    list-style: none;
+  }
+
+  &__refs {
+    float: right;
+    list-style: none;
+  }
+
+  &__item {
+    float: left;
+    margin-left: 20px;
+    &:not(&--ref)>a {
+      text-transform: uppercase;
+      font-family: Arial;
+    }
+    &--ref {
+      font-size: 6px;
+    }
+  }
+}
+
+.section {
+  width: 100%;
+  height: 100%;
+}

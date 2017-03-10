@@ -2,12 +2,17 @@
 
 @import "mixins";
 
-
-body, html {
-  height: 100%;
+* {
   padding: 0;
   margin: 0;
 }
+
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+}
+
 .wrapper {
   .wrapper();
 }
@@ -16,46 +21,56 @@ body, html {
   .clearfix();
 }
 
-.header {
+/*********** ХЕДЕР ********************/
 
+#page-header {
+  width: 100%;
   position: fixed;
-  top: 0;
-  left: 0;
+  height: 70px;
+  background: rgba(51,51,51, 0.5);
+}
 
+.header {
   &__logo {
+    line-height: 70px;
     float: left;
   }
-
-
 }
 
 .navigation {
+  .clearfix();
   float: right;
+  line-height: 70px;
 
-  &__list {
-    float: left;
-    list-style: none;
+  &__refs, &__list {
+    .clearfix();
   }
 
   &__refs {
     float: right;
-    list-style: none;
+  }
+
+  &__list {
+    float: left;
   }
 
   &__item {
     float: left;
-    margin-left: 20px;
-    &:not(&--ref)>a {
-      text-transform: uppercase;
-      font-family: Arial;
-    }
+    margin-left: 40px;
+    font-size: 20px;
     &--ref {
-      font-size: 6px;
+      margin-left: 0;
+      font-size: 0;
     }
   }
 }
 
-.section {
+/**************** ОСНОВНОЕ ТЕЛО (тег main) *************/
+
+#page-content, .slider, .slider__section {
   width: 100%;
   height: 100%;
+}
+
+.slider {
 }

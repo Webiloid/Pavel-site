@@ -1,5 +1,6 @@
 // out: main.css, compress: true, sourcemap: false,
 
+@import "variables";
 @import "mixins";
 
 * {
@@ -25,6 +26,8 @@ body, html {
 
 #page-header {
   width: 100%;
+  top: 0;
+  left: 0;
   position: fixed;
   height: 70px;
   background: rgba(51,51,51, 0.5);
@@ -73,4 +76,73 @@ body, html {
 }
 
 .slider {
+  &__section {
+    padding-top: 1px;
+    background-size: cover;
+    &--1 {
+      background-image: url("../img/slider/1.jpg");
+    }
+    &--2 {
+      background-image: url("../img/slider/2.jpg");
+    }
+    &--3 {
+      background-image: url("../img/slider/6.jpg");
+    }
+    &--4 {
+      background-image: url("../img/slider/D3.jpg");
+    }
+  }
+  &__button {
+    background: none;
+    border: none;
+    font-size: 0;
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border: 5px solid transparent;
+      border-top-color: @colorWhite;
+      border-left-color: @colorWhite;
+      transform: rotate(-45deg);
+    }
+    &--up {
+      left: 100px;
+    }
+    &--down {
+      right: 170px;
+      &::before {
+        transform: rotate(135deg);
+      }
+    }
+  }
+}
+
+.section {
+  &__title {
+    color: @colorWhite;
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  &__ref {
+    width: 150px;
+    padding: 10px;
+    display: block;
+    margin: 20px auto;
+    color: @colorWhite;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 20px;
+    border: 2px solid @colorWhite;
+  }
+  &--center {
+    text-align: center;
+    width: 400px;
+    margin: 270px auto;
+  }
 }

@@ -24,7 +24,7 @@
     let initialize = function() {
 
       // TODO Добавить css-файл со свойствами слайда (класс slider + подклассы)
-      slides.not(`:eq(${state.currentSlide})`).addClass("slider__slider--invisible");
+      slides.not(`:eq(${state.currentSlide})`).addClass("slider__slide--invisible");
       slides.eq(state.currentSlide).addClass("slider__slide");
 
       // TODO добавить селекторы для контроллеров (кнопок)

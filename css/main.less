@@ -30,7 +30,6 @@ body, html {
   left: 0;
   position: fixed;
   height: 70px;
-  background: rgba(51,51,51, 0.5);
 }
 
 .header {
@@ -80,20 +79,44 @@ body, html {
     padding-top: 1px;
     background-size: cover;
     &--1 {
-      //background-image: url("../img/slider/1.jpg");
-      background-color: red;
+      background-image: url("../img/slider/1vk.jpg");
     }
     &--2 {
-      //background-image: url("../img/slider/2.jpg");
-      background-color: green;
+      background-image: url("../img/slider/2vk.jpg");
     }
     &--3 {
-      //background-image: url("../img/slider/6.jpg");
-      background-color: yellow;
+      background-image: url("../img/slider/6vk.jpg");
     }
     &--4 {
-      //background-image: url("../img/slider/D3.jpg");
-      background-color: blue;
+      background-image: url("../img/slider/D3-vk.jpg");
+    }
+  }
+  &__button {
+    background: none;
+    border: none;
+    font-size: 0;
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border: 5px solid transparent;
+      border-top-color: @colorWhite;
+      border-left-color: @colorWhite;
+      transform: rotate(-45deg);
+    }
+    &--up {
+      left: 100px;
+    }
+    &--down {
+      right: 170px;
+      &::before {
+        transform: rotate(135deg);
+      }
     }
   }
 }
@@ -114,7 +137,12 @@ body, html {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 20px;
-    border: 2px solid @colorWhite;
+    border: 2px solid transparent;
+    transition: .3s ease all;
+    position: relative;
+    &:hover {
+      border-color: @colorWhite;
+    }
   }
   &--center {
     text-align: center;

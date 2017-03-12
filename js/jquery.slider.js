@@ -44,12 +44,18 @@
       controllers.next.on("click", changeSlide.bind(global, true));
 
       $(global).on("keydown", function(e) {
-        e.preventDefault();
-        let keyCode = e.keyCode;
-        if(keyCode === 38 || keyCode == 37) {
-          changeSlide(false);
-        } else if(keyCode == 40 || keyCode == 39) {
-          changeSlide(true);
+        switch(e.keyCode) {
+          case 37:
+          case 38:
+            e.preventDefault();
+            changeSlide(false);
+            break;
+          case 39:
+          case 40:
+            e.preventDefault();
+            changeSlide(true);
+          default:
+            return;
         }
       });
 
@@ -69,12 +75,12 @@
         state.currentSlide -= 1;
       }
 
-      slides.eq(state.currentSlide).fadeIn(settings.animationDuration);
+      slides.eq(state.currentSlide).show();
     };
 
     // TODO сброс слайдера
     let reset = function() {
-      
+
     };
 
     initialize();

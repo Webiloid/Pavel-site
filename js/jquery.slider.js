@@ -4,7 +4,6 @@
 /*
  * TODO - непонятные лаги при смене слайда
  * TODO - новые анимации
- * TODO - смена слайдов по интервалу
  * TODO - смена слайдов по скроллу
  * TODO - адаптивность размера слайдера
 */
@@ -16,7 +15,9 @@
     // Дефолтные настройки
     let settings = {
       animationDuration: 1000,
-      cyclical: false
+      cyclical: false,
+      interval: false,
+      slideInterval: 7000
     };
 
     settings = $.extend({}, settings, options);
@@ -33,14 +34,23 @@
     // Текущее состояние слайдера
     let state = {
       count: slides.length,
-      current: 0
+      current: 0,
+      interval: null
+    };
+
+    let intervalHandler = function() {
+      changeSlide(true, "interval");
     };
 
     // Создание слайдера
     let initialize = function() {
 
-      controllers.prev.on("click", changeSlide.bind(global, false));
-      controllers.next.on("click", changeSlide.bind(global, true));
+      controllers.prev.on("click", changeSlide.bind(global, false, "button"));
+      controllers.next.on("click", changeSlide.bind(global, true, "button"));
+
+      if(settings.interval) {
+        state.interval = setInterval(intervalHandler, settings.slideInterval);
+      }
 
       main.css({
         width: "100%",
@@ -71,9 +81,9 @@
         }
 
         if(keyCode === 37 || keyCode == 38) {
-          changeSlide(false);
+          changeSlide(false, "button");
         } else if(keyCode === 39 || keyCode === 40) {
-          changeSlide(true);
+          changeSlide(true, "button");
         }
 
       });
@@ -82,7 +92,7 @@
 
     };
 
-    let changeSlide = function(direction) {
+    let changeSlide = function(direction, changeSource) {
 
       if(state.current === 0 && !direction) {
         if(settings.cyclical) {
@@ -93,13 +103,20 @@
       } else if(state.current === state.count - 1 && direction) {
         if(settings.cyclical) {
           reset();
+        } else if(changeSource === "interval") {
+          clearInterval(state.interval);
         }
         return;
       }
 
+      if(settings.interval && changeSource === "button") {
+        clearInterval(state.interval);
+        state.interval = setInterval(intervalHandler, settings.slideInterval);
+      }
+
       state.current += direction ? 1 : -1;
       let offset = -state.current * slideWidth;
-      wrapper.animate({
+      wrapper.stop().animate({
         left : `${offset}px`
       }, settings.animationDuration);
 

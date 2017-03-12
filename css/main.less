@@ -25,6 +25,7 @@ body, html {
 /*********** ХЕДЕР ********************/
 
 #page-header {
+  z-index: 100;
   width: 100%;
   top: 0;
   left: 0;
@@ -69,14 +70,13 @@ body, html {
 
 /**************** ОСНОВНОЕ ТЕЛО (тег main) *************/
 
-#page-content, .slider, .slider__section {
+#page-content, .slider__section {
   width: 100%;
   height: 100%;
 }
 
 .slider {
   &__section {
-    padding-top: 1px;
     background-size: cover;
     &--1 {
       background-image: url("../img/slider/1vk.jpg");
@@ -89,34 +89,6 @@ body, html {
     }
     &--4 {
       background-image: url("../img/slider/D3-vk.jpg");
-    }
-  }
-  &__button {
-    background: none;
-    border: none;
-    font-size: 0;
-    position: absolute;
-    top: 50%;
-    margin-top: -20px;
-    &::before {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 70px;
-      height: 70px;
-      border: 5px solid transparent;
-      border-top-color: @colorWhite;
-      border-left-color: @colorWhite;
-      transform: rotate(-45deg);
-    }
-    &--up {
-      left: 100px;
-    }
-    &--down {
-      right: 170px;
-      &::before {
-        transform: rotate(135deg);
-      }
     }
   }
 }

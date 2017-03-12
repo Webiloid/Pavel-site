@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/jqueryslider.css">
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery.slider.js"></script>
   <title>Pavel Blog</title>
@@ -51,32 +50,34 @@
   </header>
   <main id="page-content">
     <div class="slider">
-      <section class="slider__slide slider__section slider__section--1">
-        <div class="section--center">
-          <h2 class="section__title">Блог</h2>
-          <a href="" class="section__ref">Подробнее</a>
-        </div>
-      </section>
-      <section class="slider__slide slider__section slider__section--2">
-        <div class="section--center">
-          <h2 class="section__title">Категории</h2>
-          <a href="" class="section__ref">Подробнее</a>
-        </div>
-      </section>
-      <section class="slider__slide slider__section slider__section--3">
-        <div class="section--center">
-          <h2 class="section__title">Сделать заказ</h2>
-          <a href="" class="section__ref">Подробнее</a>
-        </div>
-      </section>
-      <section class="slider__slide slider__section slider__section--4">
-        <div class="section--center">
-          <h2 class="section__title">Обо мне</h2>
-          <a href="" class="section__ref">Подробнее</a>
-        </div>
-      </section>
-      <button class="slider__controller slider__controller--prev">Предыдущий</button>
-      <button class="slider__controller slider__controller--next">Следующий</button>
+      <div class="slider__wrapper">
+        <section class="slider__slide slider__section slider__section--1">
+          <div class="section--center">
+            <h2 class="section__title">Блог</h2>
+            <a href="" class="section__ref">Подробнее</a>
+          </div>
+        </section>
+        <section class="slider__slide slider__section slider__section--2">
+          <div class="section--center">
+            <h2 class="section__title">Категории</h2>
+            <a href="" class="section__ref">Подробнее</a>
+          </div>
+        </section>
+        <section class="slider__slide slider__section slider__section--3">
+          <div class="section--center">
+            <h2 class="section__title">Сделать заказ</h2>
+            <a href="" class="section__ref">Подробнее</a>
+          </div>
+        </section>
+        <section class="slider__slide slider__section slider__section--4">
+          <div class="section--center">
+            <h2 class="section__title">Обо мне</h2>
+            <a href="" class="section__ref">Подробнее</a>
+          </div>
+        </section>
+        <button class="slider__controller slider__controller--prev">Предыдущий</button>
+        <button class="slider__controller slider__controller--next">Следующий</button>
+      </div>
     </div>
   </main>
   <footer id="page-footer">
@@ -96,7 +97,10 @@
     </p>
   </footer>
   <script>
-    $(".slider").slider();
+    $(".slider").slider({
+      animationDuration: 800,
+      cyclical: true
+    });
   </script>
 </body>
 </html>

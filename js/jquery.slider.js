@@ -1,5 +1,13 @@
 
-/*  Jquery slider plugin */
+/*  Jquery slider plugin v0.1.0 */
+
+/*
+ * TODO - непонятные лаги при смене слайда
+ * TODO - новые анимации
+ * TODO - смена слайдов по интервалу
+ * TODO - смена слайдов по скроллу
+ * TODO - адаптивность размера слайдера
+*/
 
 (function(global, $) {
 
@@ -7,19 +15,16 @@
 
     // Дефолтные настройки
     let settings = {
-      slideSelector: null,
-      controllerSelector: null,
-      animationDuration: 300,
-      animationType: "scroll",
-      cyclical: false,
-      autoMode: false,
-      interval: 5000,
-      direction: "left"
+      animationDuration: 1000,
+      cyclical: false
     };
 
     settings = $.extend({}, settings, options);
-    let slides = this.find(".slider__slide");
-    let controllers = {
+    const main = this,
+        wrapper = this.find(".slider__wrapper"),
+        slides = this.find(".slider__slide");
+    const slideWidth = parseInt(slides.eq(0).css("width"));
+    const controllers = {
       prev: this.find(".slider__controller--prev"),
       next: this.find(".slider__controller--next")
     };
@@ -27,60 +32,84 @@
 
     // Текущее состояние слайдера
     let state = {
-      slidesCount: slides.length,
-      currentSlide: 0
+      count: slides.length,
+      current: 0
     };
 
     // Создание слайдера
     let initialize = function() {
 
-      // TODO Добавить css-файл со свойствами слайда (класс slider + подклассы)
-      slides.hide();
-      slides.eq(state.currentSlide).show();
-
-      // TODO добавить селекторы для контроллеров (кнопок)
-      // TODO обработать нажатие на контроллеры (+ кнопки + скролл мышкой)
       controllers.prev.on("click", changeSlide.bind(global, false));
       controllers.next.on("click", changeSlide.bind(global, true));
 
-      $(global).on("keydown", function(e) {
-        switch(e.keyCode) {
-          case 37:
-          case 38:
-            e.preventDefault();
-            changeSlide(false);
-            break;
-          case 39:
-          case 40:
-            e.preventDefault();
-            changeSlide(true);
-          default:
-            return;
-        }
+      main.css({
+        width: "100%",
+        height: "100%",
+        position: "relative",
+        overflow: "hidden"
       });
 
-      $(global).on("scroll", function() {
-        console.log("scroll");
+      wrapper.css({
+        width: "400%",
+        height: "100%",
+        position: "absolute",
+        top: 0,
+        left: 0
       });
+
+      slides.css({
+        width: "25%",
+        height: "100%",
+        float: "left"
+      });
+
+      $(global).on("keydown", function(e) {
+        let keyCode = e.keyCode;
+
+        if(keyCode > 36 && keyCode < 41) {
+          e.preventDefault();
+        }
+
+        if(keyCode === 37 || keyCode == 38) {
+          changeSlide(false);
+        } else if(keyCode === 39 || keyCode === 40) {
+          changeSlide(true);
+        }
+
+      });
+
+      // TODO - скроллинг
 
     };
 
     let changeSlide = function(direction) {
 
-      slides.eq(state.currentSlide).hide();
-
-      if((state.currentSlide < state.slidesCount - 1) && direction) {
-        state.currentSlide += 1;
-      } else if(state.currentSlide > 0 && !direction) {
-        state.currentSlide -= 1;
+      if(state.current === 0 && !direction) {
+        if(settings.cyclical) {
+          state.current = state.count;
+        } else {
+          return;
+        }
+      } else if(state.current === state.count - 1 && direction) {
+        if(settings.cyclical) {
+          reset();
+        }
+        return;
       }
 
-      slides.eq(state.currentSlide).show();
+      state.current += direction ? 1 : -1;
+      let offset = -state.current * slideWidth;
+      wrapper.animate({
+        left : `${offset}px`
+      }, settings.animationDuration);
+
     };
 
-    // TODO сброс слайдера
     let reset = function() {
-
+      wrapper.animate({
+        left: 0
+      }, settings.animationDuration);
+      state.current = 0;
     };
 
     initialize();

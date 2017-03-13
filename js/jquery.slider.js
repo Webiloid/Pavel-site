@@ -14,6 +14,7 @@
 
     // Дефолтные настройки
     let settings = {
+      animationType: "slide",
       animationDuration: 1000,
       cyclical: false,
       interval: false,
@@ -24,11 +25,11 @@
     const main = this,
         wrapper = this.find(".slider__wrapper"),
         slides = this.find(".slider__slide");
-    const slideWidth = parseInt(slides.eq(0).css("width"));
     const controllers = {
       prev: this.find(".slider__controller--prev"),
       next: this.find(".slider__controller--next")
     };
+    let slideWidth = 0;
 
 
     // Текущее состояние слайдера
@@ -38,8 +39,27 @@
       interval: null
     };
 
+    let initSliderComponents = function() {
+
+      let mainCss = {}, wrapperCss = {}, slidesCss = {};
+
+    };
+
     let intervalHandler = function() {
       changeSlide(true, "interval");
+    };
+
+    let getAnimationObject = function() {
+
+      let animationObject = {};
+
+      if(settings.animationType === "slide") {
+        animationObject.left = `${-state.current * slideWidth}px`;
+      } else if(settings.animationType === "fade") {
+
+      }
+
+      return animationObject;
     };
 
     // Создание слайдера
@@ -53,7 +73,7 @@
       }
 
       main.css({
-        width: "100%",
+        width: "inherit",
         height: "100%",
         position: "relative",
         overflow: "hidden"
@@ -73,6 +93,8 @@
         float: "left"
       });
 
+      slideWidth = parseInt(slides.eq(0).css("width"));
+
       $(global).on("keydown", function(e) {
         let keyCode = e.keyCode;
 
@@ -88,6 +110,10 @@
 
       });
 
+      $(global).scroll(function(eventObject) {
+        console.log(eventObject.data.a);
+        //changeSlide(true);
+      });
       // TODO - скроллинг
 
     };
@@ -116,9 +142,7 @@
 
       state.current += direction ? 1 : -1;
       let offset = -state.current * slideWidth;
-      wrapper.stop().animate({
-        left : `${offset}px`
-      }, settings.animationDuration);
+      wrapper.stop().animate(getAnimationObject(), settings.animationDuration);
 
     };
 

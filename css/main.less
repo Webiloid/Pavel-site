@@ -31,6 +31,7 @@ body, html {
   left: 0;
   position: fixed;
   height: 70px;
+  background: rgba(51,51,51,.75);
 }
 
 .header {
@@ -61,11 +62,33 @@ body, html {
     float: left;
     margin-left: 40px;
     font-size: 20px;
+    &--twitter {
+      &>a {
+        background: url("../img/twitter.png") no-repeat 50% 50%;
+      }
+    }
+    &--facebook {
+      &>a {
+        background: url("../img/facebook.png") no-repeat 50% 50%;
+      }
+    }
+    &--instagram {
+      &>a {
+        background: url("../img/instagram.png") no-repeat 50% 50%;
+      }
+    }
     &--ref {
-      margin-left: 0;
+      filter: invert(100%);
+      margin-left: 40px;
       font-size: 0;
+      &>a {
+        display: block;
+        width: 24px;
+        height: 100%;
+      }
     }
   }
+
 }
 
 /**************** ОСНОВНОЕ ТЕЛО (тег main) *************/

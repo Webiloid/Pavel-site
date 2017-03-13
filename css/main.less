@@ -12,6 +12,7 @@ body, html {
   width: 100%;
   height: 100%;
   font-family: 'Arial', sans-serif;
+  position: relative;
 }
 
 .wrapper {
@@ -31,6 +32,7 @@ body, html {
   left: 0;
   position: fixed;
   height: 70px;
+  background: rgba(51,51,51, .3);
 }
 
 .header {
@@ -61,11 +63,37 @@ body, html {
     float: left;
     margin-left: 40px;
     font-size: 20px;
+    &--twitter {
+      &>a {
+        background: url("../img/twitter.png") no-repeat 50% 50%;
+      }
+    }
+    &--facebook {
+      &>a {
+        background: url("../img/facebook.png") no-repeat 50% 50%;
+      }
+    }
+    &--instagram {
+      &>a {
+        background: url("../img/instagram.png") no-repeat 50% 50%;
+      }
+    }
     &--ref {
-      margin-left: 0;
+      transition: .3s ease filter;
+      filter: invert(100%);
+      margin-left: 40px;
       font-size: 0;
+      &>a {
+        display: block;
+        width: 24px;
+        height: 100%;
+      }
+      &:hover {
+        filter: invert(85%);
+      }
     }
   }
+
 }
 
 /**************** ОСНОВНОЕ ТЕЛО (тег main) *************/
@@ -77,6 +105,9 @@ body, html {
 
 .slider {
   &__section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-size: cover;
     &--1 {
       background-image: url("../img/slider/1vk.jpg");
@@ -119,6 +150,5 @@ body, html {
   &--center {
     text-align: center;
     width: 400px;
-    margin: 270px auto;
   }
 }

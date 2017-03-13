@@ -1,5 +1,5 @@
 
-/*  Jquery slider plugin v0.1.0 */
+/*  Jquery slider plugin v0.1.1 */
 
 /*
  * TODO - непонятные лаги при смене слайда
@@ -12,9 +12,20 @@
 
   $.fn.slider = function(options) {
 
-    // Дефолтные настройки
+    /* Дефолтные настройки
+     * animationType - тип слайдера "slide-horizontal" - скроллится по горизонтали,
+     *                              "slide-vertical" - скроллится по вертикали
+     *                              ПО УМОЛЧАНИЮ - "slide-horizontal"
+     * animationDuration - время смены слайдов (в миллисекундах)
+     * cyclical - true - слайд скроллится циклично (из последнего в первый слайд и наоборот)
+     *            false - слайд не скроллится с последнего на первый (и наоборот)
+     * interval - true - слайды меняются самостоятельно
+     *            false - слайды не меняются без участия пользователя
+     * slideInterval - время демонстрации одного слайда (в миллисекундах), при условии активности
+     *                 параметра interval
+     */
     let settings = {
-      animationType: "slide",
+      animationType: "slide-horizontal",
       animationDuration: 1000,
       cyclical: false,
       interval: false,
@@ -29,10 +40,8 @@
       prev: this.find(".slider__controller--prev"),
       next: this.find(".slider__controller--next")
     };
-    let slideWidth = 0;
+    let slideWidth, slideHeight;
 
-
-    // Текущее состояние слайдера
     let state = {
       count: slides.length,
       current: 0,
@@ -41,7 +50,34 @@
 
     let initSliderComponents = function() {
 
-      let mainCss = {}, wrapperCss = {}, slidesCss = {};
+      let mainCss = {
+        width: "inherit",
+        height: "100%",
+        position: "relative",
+        overflow: "hidden"
+      }, wrapperCss = {}, slidesCss = {};
+
+      let wrapperSize = `${state.count * 100}%`, slideSize = `${100 / state.count}%`;
+      wrapperCss.position = "absolute";
+      wrapperCss.top = 0;
+      wrapperCss.left = 0;
+
+      if(settings.animationType === "slide-horizontal") {
+        wrapperCss.height = "100%";
+        wrapperCss.width = wrapperSize;
+        slidesCss.height = "100%";
+        slidesCss.width = slideSize;
+        slidesCss.float = "left";
+      } else if(settings.animationType === "slide-vertical") {
+        wrapperCss.height = wrapperSize;
+        wrapperCss.width = "100%"
+        slidesCss.width = "100%";
+        slidesCss.height = slideSize;
+      }
+
+      main.css(mainCss);
+      wrapper.css(wrapperCss);
+      slides.css(slidesCss);
 
     };
 
@@ -53,10 +89,10 @@
 
       let animationObject = {};
 
-      if(settings.animationType === "slide") {
+      if(settings.animationType === "slide-horizontal") {
         animationObject.left = `${-state.current * slideWidth}px`;
-      } else if(settings.animationType === "fade") {
-
+      } else if(settings.animationType === "slide-vertical") {
+        animationObject.top = `${-state.current * slideHeight}px`;
       }
 
       return animationObject;
@@ -65,6 +101,7 @@
     // Создание слайдера
     let initialize = function() {
 
+      initSliderComponents();
       controllers.prev.on("click", changeSlide.bind(global, false, "button"));
       controllers.next.on("click", changeSlide.bind(global, true, "button"));
 
@@ -72,28 +109,9 @@
         state.interval = setInterval(intervalHandler, settings.slideInterval);
       }
 
-      main.css({
-        width: "inherit",
-        height: "100%",
-        position: "relative",
-        overflow: "hidden"
-      });
-
-      wrapper.css({
-        width: "400%",
-        height: "100%",
-        position: "absolute",
-        top: 0,
-        left: 0
-      });
-
-      slides.css({
-        width: "25%",
-        height: "100%",
-        float: "left"
-      });
-
-      slideWidth = parseInt(slides.eq(0).css("width"));
+      let firstSlide = slides.eq(state.current);
+      slideWidth = parseInt(firstSlide.css("width"));
+      slideHeight = parseInt(firstSlide.css("height"));
 
       $(global).on("keydown", function(e) {
         let keyCode = e.keyCode;
@@ -109,12 +127,6 @@
         }
 
       });
-
-      $(global).scroll(function(eventObject) {
-        console.log(eventObject.data.a);
-        //changeSlide(true);
-      });
-      // TODO - скроллинг
 
     };
 
@@ -148,7 +160,8 @@
 
     let reset = function() {
       wrapper.animate({
-        left: 0
+        left: 0,
+        top: 0
       }, settings.animationDuration);
       state.current = 0;
     };

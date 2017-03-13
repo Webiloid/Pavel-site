@@ -63,16 +63,20 @@
       wrapperCss.left = 0;
 
       if(settings.animationType === "slide-horizontal") {
-        wrapperCss.height = "100%";
+
+        wrapperCss.height = slidesCss.height = "100%";
         wrapperCss.width = wrapperSize;
-        slidesCss.height = "100%";
+
         slidesCss.width = slideSize;
         slidesCss.float = "left";
+
       } else if(settings.animationType === "slide-vertical") {
+
+        wrapperCss.width = slidesCss.width = "100%";
         wrapperCss.height = wrapperSize;
-        wrapperCss.width = "100%"
-        slidesCss.width = "100%";
+
         slidesCss.height = slideSize;
+
       }
 
       main.css(mainCss);
@@ -153,13 +157,12 @@
       }
 
       state.current += direction ? 1 : -1;
-      let offset = -state.current * slideWidth;
       wrapper.stop().animate(getAnimationObject(), settings.animationDuration);
 
     };
 
     let reset = function() {
-      wrapper.animate({
+      wrapper.stop().animate({
         left: 0,
         top: 0
       }, settings.animationDuration);

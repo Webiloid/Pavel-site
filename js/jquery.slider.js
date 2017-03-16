@@ -8,13 +8,23 @@
  * TODO - адаптивность размера слайдера
 */
 
-(function(global, $) {
+(function(global, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory(global, require('jquery'));
+  } else {
+    factory(global, global.jQuery);
+  }
+
+})(this, function(global, $) {
 
   $.fn.slider = function(options) {
 
     /* Дефолтные настройки
      * animationType - тип слайдера "slide-horizontal" - скроллится по горизонтали,
-     *                              "slide-vertical" - скроллится по вертикали
+     *                              "slide-vertical" - скроллится по вертикали,
      *                              ПО УМОЛЧАНИЮ - "slide-horizontal"
      * animationDuration - время смены слайдов (в миллисекундах)
      * cyclical - true - слайд скроллится циклично (из последнего в первый слайд и наоборот)
@@ -63,20 +73,14 @@
       wrapperCss.left = 0;
 
       if(settings.animationType === "slide-horizontal") {
-
         wrapperCss.height = slidesCss.height = "100%";
         wrapperCss.width = wrapperSize;
-
         slidesCss.width = slideSize;
         slidesCss.float = "left";
-
       } else if(settings.animationType === "slide-vertical") {
-
         wrapperCss.width = slidesCss.width = "100%";
         wrapperCss.height = wrapperSize;
-
         slidesCss.height = slideSize;
-
       }
 
       main.css(mainCss);
@@ -102,7 +106,6 @@
       return animationObject;
     };
 
-    // Создание слайдера
     let initialize = function() {
 
       initSliderComponents();
@@ -117,7 +120,7 @@
       slideWidth = parseInt(firstSlide.css("width"));
       slideHeight = parseInt(firstSlide.css("height"));
 
-      $(global).on("keydown", function(e) {
+      $(global).keydown(function(e) {
         let keyCode = e.keyCode;
 
         if(keyCode > 36 && keyCode < 41) {
@@ -136,6 +139,7 @@
 
     let changeSlide = function(direction, changeSource) {
 
+      let prev = slides.eq(state.current);
       if(state.current === 0 && !direction) {
         if(settings.cyclical) {
           state.current = state.count;
@@ -172,4 +176,4 @@
     initialize();
   };
 
-})(this, jQuery);
+});

@@ -24,7 +24,7 @@
 
     /* Дефолтные настройки
      * animationType - тип слайдера "slide-horizontal" - скроллится по горизонтали,
-     *                              "slide-vertical" - скроллится по вертикали
+     *                              "slide-vertical" - скроллится по вертикали,
      *                              ПО УМОЛЧАНИЮ - "slide-horizontal"
      * animationDuration - время смены слайдов (в миллисекундах)
      * cyclical - true - слайд скроллится циклично (из последнего в первый слайд и наоборот)
@@ -73,28 +73,14 @@
       wrapperCss.left = 0;
 
       if(settings.animationType === "slide-horizontal") {
-
         wrapperCss.height = slidesCss.height = "100%";
         wrapperCss.width = wrapperSize;
-
         slidesCss.width = slideSize;
         slidesCss.float = "left";
-
       } else if(settings.animationType === "slide-vertical") {
-
         wrapperCss.width = slidesCss.width = "100%";
         wrapperCss.height = wrapperSize;
-
         slidesCss.height = slideSize;
-
-      } else if(settings.animationType === "fade") {
-
-        wrapperCss.width = slidesCss.width = wrapperCss.height = slidesCss.height = "100%";
-        slidesCss.position = "absolute";
-
-        $.each(slides, function(index) {
-          slides.eq(index).css("z-index", state.count - index);
-        });
       }
 
       main.css(mainCss);
@@ -157,7 +143,6 @@
       if(state.current === 0 && !direction) {
         if(settings.cyclical) {
           state.current = state.count;
-          // TODO - Допилить циклическую прозрачность
         } else {
           return;
         }
@@ -176,28 +161,15 @@
       }
 
       state.current += direction ? 1 : -1;
-
-      if(settings.animationType === "fade") {
-        (direction ? prev : slides.eq(state.current)).stop().animate({
-          opacity: (direction ? 0 : 1)
-        }, settings.animationDuration);
-      } else {
-        wrapper.stop().animate(getAnimationObject(), settings.animationDuration);
-      }
+      wrapper.stop().animate(getAnimationObject(), settings.animationDuration);
 
     };
 
     let reset = function() {
-      if(settings.animationType !== "fade") {
-        wrapper.stop().animate({
-          left: 0,
-          top: 0
-        }, settings.animationDuration);
-      } else {
-        slides.eq(0).stop().animate({ opacity: 1 }, settings.animationDuration, function() {
-          slides.css("opacity", 1);
-        });
-      }
+      wrapper.stop().animate({
+        left: 0,
+        top: 0
+      }, settings.animationDuration);
       state.current = 0;
     };
 

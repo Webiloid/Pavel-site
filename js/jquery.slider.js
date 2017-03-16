@@ -8,7 +8,17 @@
  * TODO - адаптивность размера слайдера
 */
 
-(function(global, $) {
+(function(global, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory(global, require('jquery'));
+  } else {
+    factory(global, global.jQuery);
+  }
+
+})(this, function(global, $) {
 
   $.fn.slider = function(options) {
 
@@ -77,6 +87,14 @@
 
         slidesCss.height = slideSize;
 
+      } else if(settings.animationType === "fade") {
+
+        wrapperCss.width = slidesCss.width = wrapperCss.height = slidesCss.height = "100%";
+        slidesCss.position = "absolute";
+
+        $.each(slides, function(index) {
+          slides.eq(index).css("z-index", state.count - index);
+        });
       }
 
       main.css(mainCss);
@@ -102,7 +120,6 @@
       return animationObject;
     };
 
-    // Создание слайдера
     let initialize = function() {
 
       initSliderComponents();
@@ -117,7 +134,7 @@
       slideWidth = parseInt(firstSlide.css("width"));
       slideHeight = parseInt(firstSlide.css("height"));
 
-      $(global).on("keydown", function(e) {
+      $(global).keydown(function(e) {
         let keyCode = e.keyCode;
 
         if(keyCode > 36 && keyCode < 41) {
@@ -136,9 +153,11 @@
 
     let changeSlide = function(direction, changeSource) {
 
+      let prev = slides.eq(state.current);
       if(state.current === 0 && !direction) {
         if(settings.cyclical) {
           state.current = state.count;
+          // TODO - Допилить циклическую прозрачность
         } else {
           return;
         }
@@ -157,19 +176,32 @@
       }
 
       state.current += direction ? 1 : -1;
-      wrapper.stop().animate(getAnimationObject(), settings.animationDuration);
+
+      if(settings.animationType === "fade") {
+        (direction ? prev : slides.eq(state.current)).stop().animate({
+          opacity: (direction ? 0 : 1)
+        }, settings.animationDuration);
+      } else {
+        wrapper.stop().animate(getAnimationObject(), settings.animationDuration);
+      }
 
     };
 
     let reset = function() {
-      wrapper.stop().animate({
-        left: 0,
-        top: 0
-      }, settings.animationDuration);
+      if(settings.animationType !== "fade") {
+        wrapper.stop().animate({
+          left: 0,
+          top: 0
+        }, settings.animationDuration);
+      } else {
+        slides.eq(0).stop().animate({ opacity: 1 }, settings.animationDuration, function() {
+          slides.css("opacity", 1);
+        });
+      }
       state.current = 0;
     };
 
     initialize();
   };
 
-})(this, jQuery);
+});

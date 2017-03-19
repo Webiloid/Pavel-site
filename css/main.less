@@ -3,6 +3,11 @@
 @import "variables";
 @import "mixins";
 
+::-webkit-input-placeholder {color:#343434;}
+::-moz-placeholder          {color:#343434;}
+:-moz-placeholder           {color:#343434;}
+:-ms-input-placeholder      {color:#343434;}
+
 * {
   padding: 0;
   margin: 0;
@@ -48,6 +53,8 @@ body, html {
   line-height: 70px;
 
   &__refs, &__list {
+    list-style: none;
+    position: relative;
     .clearfix();
   }
 
@@ -87,9 +94,9 @@ body, html {
   }
 
   &__subitem-header {
+    opacity: 1;
     &:hover>.navigation__sublist {
       transform: translateY(0%) rotateX(0deg);
-      opacity: 1;
     }
   }
 
@@ -110,11 +117,26 @@ body, html {
     float: left;
     margin-left: 40px;
     font-size: 20px;
+    cursor: pointer;
+    &:active {
+      transform: scale(.95);
+    }
     &>a{
       color: @colorWhite;
       text-decoration: none;
       font-family: Helvetica, sans-serif;
       font-size: 15px;
+    }
+    &--search {
+      width: 64px;
+      height: 70px;
+      position: relative;
+      background: url("../img/search.png") no-repeat 50% 50%;
+      background-size: 40px;
+      font-size: 0;
+      &:hover {
+        filter: invert(20%);
+      }
     }
     &--twitter {
       &>a {
@@ -238,5 +260,139 @@ body, html {
   &--center {
     text-align: center;
     width: 400px;
+  }
+}
+
+.search {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(200,200,200,.95);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  &__close {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: none;
+    right: 50px;
+    top: 10px;
+    background: none;
+    font-size: none;
+    outline: none;
+    font-size: 0;
+    cursor: pointer;
+    &::before, &::after {
+      position: absolute;
+      content: "";
+      width: 40px;
+      margin-left: -20px;
+      border-bottom: 2px solid #343434;
+    }
+    &::before {
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    &::after {
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+    }
+    &:active {
+      -webkit-transform: scale(.9);
+      -moz-transform: scale(.9);
+      transform: scale(.9);
+    }
+  }
+  &__field {
+    padding: 20px;
+  }
+  &__go {
+    margin-left: 20px;
+    width: 100px;
+    height: 45px;
+    padding: 10px;
+    font-size: 20px;
+    text-transform: uppercase;
+    background: #343434;
+    color: @colorWhite;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 7px 5px -5px rgba(51,51,51,.75);
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      background: #454545;
+    }
+    &:active{
+      transform: scale(.9);
+    }
+  }
+}
+
+.appear {
+  &__input {
+    -webkit-animation: .5s ease inp;
+    -moz-animation: .5s ease inp;
+    animation: .5s ease inp;
+  }
+}
+
+.disappear {
+  &__input {
+    -webkit-animation: .5s ease oup;
+    -moz-animation: .5s ease oup;
+    animation: .5s ease oup;
+  }
+}
+
+#search__string {
+  width: 450px;
+  height: 35px;
+  padding: 5px;
+  padding-left: 10px;
+  font-size: 20px;
+  border: none;
+  border-bottom: 2px solid #343434;
+  background: none;
+  outline: none;
+  color: #343434;
+  box-shadow: 0 6px 5px -5px rgba(51,51,51,.75);
+}
+
+@keyframes inp {
+  0% {
+    -webkit-transform: translateX(-100%) skewX(25deg);
+    -moz-transform: translateX(-100%) skewX(25deg);
+    transform: translateX(-100%) skewX(25deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0%) scaleX(0deg);
+    -moz-transform: translateX(0%) scaleX(0deg);
+    transform: translateX(0%) scaleX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes oup {
+  0% {
+    -webkit-transform: translateX(0%) scaleX(0deg);
+    -moz-transform: translateX(0%) scaleX(0deg);
+    transform: translateX(0%) scaleX(0deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(-100%) skewX(25deg);
+    -moz-transform: translateX(-100%) skewX(25deg);
+    transform: translateX(-100%) skewX(25deg);
+    opacity: 0;
   }
 }

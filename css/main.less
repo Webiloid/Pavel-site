@@ -42,8 +42,20 @@ body, html {
 
 .header {
   &__logo {
-    line-height: 70px;
     float: left;
+    font-size: 0;
+  }
+}
+
+.page__logo {
+  display: block;
+  height: 70px;
+  width: 210px;
+  background: url("../img/logo.png") no-repeat center;
+  background-size: 210px 25px;
+  filter: invert(100%);
+  &:hover {
+    filter: invert(70%);
   }
 }
 

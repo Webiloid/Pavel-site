@@ -70,15 +70,15 @@ body, html {
 
   &__sublist {
     opacity: 0;
-    transform: translateY(-10%) rotateX(-90deg);
     transform-origin: top;
+    transform: translateY(50px);
     top: 80%;
     border-radius: 5px;
     text-align: center;
     width: 150px;
     background: #dedede;
-    padding: 20px;
-    margin-left: -60px;
+    padding: 10px;
+    margin-left: -45px;
     position: absolute;
     &::before {
       content: "";
@@ -90,29 +90,35 @@ body, html {
       border: 10px solid transparent;
       border-bottom: 10px solid #dedede;
     }
-    transition: .6s ease transform, .6s ease opacity;
+    transition: .3s ease all;
   }
 
   &__subitem-header {
-    opacity: 1;
     &:hover>.navigation__sublist {
-      transform: translateY(0%) rotateX(0deg);
+      transform: translateY(0px);
+      opacity: 1;
     }
   }
 
   &__subitem {
     position: relative;
     font-size: 14px;
-    height: 40px;
-    line-height: 40px;
+    height: 20px;
+    margin: 10px 0;
+    line-height: 20px;
     &>a {
-      color: #343434;
+      color: #565656;
+      text-transform: uppercase;
       text-decoration: none;
       font-family: Helvetica, sans-serif;
+      &:hover {
+        color: #343434;
+      }
     }
   }
 
   &__item {
+    text-transform: uppercase;
     position: relative;
     float: left;
     margin-left: 40px;
@@ -250,11 +256,13 @@ body, html {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 20px;
-    border: 2px solid transparent;
+    border: 2px solid @colorWhite;
     transition: .3s ease all;
     position: relative;
+    border-radius: 3px;
     &:hover {
-      border-color: @colorWhite;
+      background: @colorWhite;
+      color: @mainThemeGrayColor;
     }
   }
   &--center {

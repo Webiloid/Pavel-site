@@ -1,4 +1,4 @@
-$(".slider").slider({
+let a = $(".slider").slider({
   animationType: "slide-horizontal",
   animationDuration: 800,
   cyclical: true,

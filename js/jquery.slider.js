@@ -22,6 +22,16 @@
 
   $.fn.slider = function(options) {
 
+    let slider = {
+
+      version: "0.1.1",
+
+      currentSlideIndex: function() {
+        return this.state.current;
+      }
+
+    };
+
     /* Дефолтные настройки
      * animationType - тип слайдера "slide-horizontal" - скроллится по горизонтали,
      *                              "slide-vertical" - скроллится по вертикали,
@@ -52,7 +62,7 @@
     };
     let slideWidth, slideHeight;
 
-    let state = {
+    let state = slider.state = {
       count: slides.length,
       current: 0,
       interval: null
@@ -133,6 +143,24 @@
           changeSlide(true, "button");
         }
 
+        return $(this);
+      }).resize(function() {
+
+        let width = $(this).width(),
+            height = $(this).height();
+
+        slideWidth = width;
+        slideHeight = height;
+
+        main.css({
+          width: `${width}px`,
+          height: `${height}px`
+        });
+
+        wrapper.css({
+          width: `${4 * width}px`,
+          height: `${height}px`
+        });
       });
 
     };
@@ -174,6 +202,8 @@
     };
 
     initialize();
+
+    return slider;
   };
 
 });

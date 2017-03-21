@@ -3,6 +3,11 @@
 @import "variables";
 @import "mixins";
 
+::-webkit-input-placeholder {color:#343434;}
+::-moz-placeholder          {color:#343434;}
+:-moz-placeholder           {color:#343434;}
+:-ms-input-placeholder      {color:#343434;}
+
 * {
   padding: 0;
   margin: 0;
@@ -37,8 +42,20 @@ body, html {
 
 .header {
   &__logo {
-    line-height: 70px;
     float: left;
+    font-size: 0;
+  }
+}
+
+.page__logo {
+  display: block;
+  height: 70px;
+  width: 210px;
+  background: url("../img/logo.png") no-repeat center;
+  background-size: 210px 25px;
+  filter: invert(100%);
+  &:hover {
+    filter: invert(70%);
   }
 }
 
@@ -48,6 +65,8 @@ body, html {
   line-height: 70px;
 
   &__refs, &__list {
+    list-style: none;
+    position: relative;
     .clearfix();
   }
 
@@ -62,16 +81,17 @@ body, html {
   }
 
   &__sublist {
+    visibility: hidden;
     opacity: 0;
-    transform: translateY(-10%) rotateX(-90deg);
     transform-origin: top;
+    transform: translateY(50px);
     top: 80%;
     border-radius: 5px;
     text-align: center;
     width: 150px;
     background: #dedede;
-    padding: 20px;
-    margin-left: -60px;
+    padding: 10px;
+    margin-left: -45px;
     position: absolute;
     &::before {
       content: "";
@@ -83,12 +103,13 @@ body, html {
       border: 10px solid transparent;
       border-bottom: 10px solid #dedede;
     }
-    transition: .6s ease transform, .6s ease opacity;
+    transition: .3s ease all;
   }
 
   &__subitem-header {
     &:hover>.navigation__sublist {
-      transform: translateY(0%) rotateX(0deg);
+      visibility: visible;
+      transform: translateY(0px);
       opacity: 1;
     }
   }
@@ -96,25 +117,49 @@ body, html {
   &__subitem {
     position: relative;
     font-size: 14px;
-    height: 40px;
-    line-height: 40px;
+    height: 20px;
+    margin: 10px 0;
+    line-height: 20px;
     &>a {
-      color: #343434;
+      color: #565656;
+      text-transform: uppercase;
       text-decoration: none;
       font-family: Helvetica, sans-serif;
+      &:hover {
+        color: #343434;
+      }
     }
   }
 
   &__item {
+    text-transform: uppercase;
     position: relative;
     float: left;
     margin-left: 40px;
     font-size: 20px;
+    cursor: pointer;
+    &:active {
+      transform: scale(.95);
+    }
     &>a{
       color: @colorWhite;
       text-decoration: none;
       font-family: Helvetica, sans-serif;
       font-size: 15px;
+    }
+    &:hover>a {
+      color: #ababab;
+    }
+    &--search {
+      width: 64px;
+      height: 70px;
+      position: relative;
+      background: url("../img/search.png") no-repeat 50% 50%;
+      background-size: 40px;
+      font-size: 0;
+      &:hover {
+        filter: invert(20%);
+      }
     }
     &--twitter {
       &>a {
@@ -228,11 +273,13 @@ body, html {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 20px;
-    border: 2px solid transparent;
+    border: 2px solid @colorWhite;
     transition: .3s ease all;
     position: relative;
+    border-radius: 3px;
     &:hover {
-      border-color: @colorWhite;
+      background: @colorWhite;
+      color: @mainThemeGrayColor;
     }
   }
   &--center {
@@ -240,6 +287,7 @@ body, html {
     width: 400px;
   }
 }
+
 /*********** ФУТЕР ********************/
 #page-footer {
  height: 90px;
@@ -294,3 +342,138 @@ body, html {
   }
 
   }
+
+
+.search {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(200,200,200,.95);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  &__close {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: none;
+    right: 50px;
+    top: 10px;
+    background: none;
+    font-size: none;
+    outline: none;
+    font-size: 0;
+    cursor: pointer;
+    &::before, &::after {
+      position: absolute;
+      content: "";
+      width: 40px;
+      margin-left: -20px;
+      border-bottom: 2px solid #343434;
+    }
+    &::before {
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    &::after {
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+    }
+    &:active {
+      -webkit-transform: scale(.9);
+      -moz-transform: scale(.9);
+      transform: scale(.9);
+    }
+  }
+  &__field {
+    padding: 20px;
+  }
+  &__go {
+    margin-left: 20px;
+    width: 100px;
+    height: 45px;
+    padding: 10px;
+    font-size: 20px;
+    text-transform: uppercase;
+    background: #343434;
+    color: @colorWhite;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 7px 5px -5px rgba(51,51,51,.75);
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      background: #454545;
+    }
+    &:active{
+      transform: scale(.9);
+    }
+  }
+}
+
+.appear {
+  &__input {
+    -webkit-animation: .5s ease inp;
+    -moz-animation: .5s ease inp;
+    animation: .5s ease inp;
+  }
+}
+
+.disappear {
+  &__input {
+    -webkit-animation: .5s ease oup;
+    -moz-animation: .5s ease oup;
+    animation: .5s ease oup;
+  }
+}
+
+#search__string {
+  width: 450px;
+  height: 35px;
+  padding: 5px;
+  padding-left: 10px;
+  font-size: 20px;
+  border: none;
+  border-bottom: 2px solid #343434;
+  background: none;
+  outline: none;
+  color: #343434;
+  box-shadow: 0 6px 5px -5px rgba(51,51,51,.75);
+}
+
+@keyframes inp {
+  0% {
+    -webkit-transform: translateX(-100%) skewX(25deg);
+    -moz-transform: translateX(-100%) skewX(25deg);
+    transform: translateX(-100%) skewX(25deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0%) scaleX(0deg);
+    -moz-transform: translateX(0%) scaleX(0deg);
+    transform: translateX(0%) scaleX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes oup {
+  0% {
+    -webkit-transform: translateX(0%) scaleX(0deg);
+    -moz-transform: translateX(0%) scaleX(0deg);
+    transform: translateX(0%) scaleX(0deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(-100%) skewX(25deg);
+    -moz-transform: translateX(-100%) skewX(25deg);
+    transform: translateX(-100%) skewX(25deg);
+    opacity: 0;
+  }
+}

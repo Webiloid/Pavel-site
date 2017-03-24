@@ -50,6 +50,7 @@
       prev: this.find(".slider__controller--prev"),
       next: this.find(".slider__controller--next")
     };
+    controllers.prev.fadeOut(300);
     let slideWidth, slideHeight;
 
     let state = {
@@ -139,6 +140,9 @@
 
     let changeSlide = function(direction, changeSource) {
 
+      controllers.prev.show();
+      controllers.next.show();
+
       let prev = slides.eq(state.current);
       if(state.current === 0 && !direction) {
         if(settings.cyclical) {
@@ -149,6 +153,7 @@
       } else if(state.current === state.count - 1 && direction) {
         if(settings.cyclical) {
           reset();
+          controllers.prev.fadeOut(300);
         } else if(changeSource === "interval") {
           clearInterval(state.interval);
         }
@@ -162,6 +167,12 @@
 
       state.current += direction ? 1 : -1;
       wrapper.stop().animate(getAnimationObject(), settings.animationDuration);
+
+      if(state.current === state.count - 1) {
+        controllers.next.fadeOut(300);
+      } else if(state.current === 0) {
+        controllers.prev.fadeOut(300);
+      }
 
     };
 

@@ -12,7 +12,7 @@ $(window).on("load", function() {
     strokeWidth: 6,
     easing: 'easeInOut',
     duration: 1400,
-    color: '#FFEA82',
+    color: '#FFF',
     trailColor: '#eee',
     trailWidth: 1,
     svgStyle: null

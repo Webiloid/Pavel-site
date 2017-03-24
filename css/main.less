@@ -36,8 +36,8 @@ body, html {
   top: 0;
   left: 0;
   position: fixed;
-  height: 70px;
-  background: rgba(31,31,31, .7);
+  height: 50px;
+  background: rgba(51,51,51,.75);
 }
 
 .header {
@@ -49,19 +49,16 @@ body, html {
 
 .page__logo {
   display: block;
-  height: 70px;
+  height: 50px;
   width: 210px;
   background: url("../img/logo.png") no-repeat center;
   background-size: 210px 25px;
-  &:hover {
-    filter: invert(70%);
-  }
 }
 
 .navigation {
   .clearfix();
   float: right;
-  line-height: 70px;
+  line-height: 50px;
 
   &__refs, &__list {
     list-style: none;
@@ -80,53 +77,62 @@ body, html {
   }
 
   &__sublist {
-    visibility: hidden;
-    opacity: 0;
-    transform-origin: top;
-    transform: translateY(50px);
-    top: 80%;
-    border-radius: 5px;
+    top: 50px;
     text-align: center;
-    width: 150px;
-    background: #dedede;
-    padding: 10px;
-    margin-left: -45px;
+    width: 120px;
+    margin-left: -20px;
+    border-top: none;
     position: absolute;
-    &::before {
-      content: "";
-      position: absolute;
-      display: block;
-      top: -20px;
-      left: 50%;
-      margin-left: -5px;
-      border: 10px solid transparent;
-      border-bottom: 10px solid #dedede;
-    }
-    transition: .3s ease all;
   }
 
   &__subitem-header {
     &:hover>.navigation__sublist {
-      visibility: visible;
-      transform: translateY(0px);
-      opacity: 1;
+        &>.navigation__subitem {
+          -webkit-transform: translateX(0) skewX(0deg);
+          opacity: 1;
+        }
     }
   }
 
   &__subitem {
+    &--1 {
+      transition-delay: .1s;
+    }
+    &--2 {
+      transition-delay: .2s;
+    }
+    &--3 {
+      transition-delay: .3s;
+    }
+    &--4 {
+      transition-delay: .4s;
+    }
+    &--5 {
+      transition-delay: .5s;
+    }
+    &--6 {
+      transition-delay: .6s;
+    }
+    transition: .4s ease transform, .4s ease opacity;
+    opacity: 0;
+    transform: translateX(100px) skewX(-15deg);
     position: relative;
     font-size: 14px;
+    padding: 7px;
+    background-color: rgba(51,51,51,.75);
+    &:hover {
+      background: @colorWhite;
+      &>a {
+        color: #343434;
+      }
+    }
     height: 20px;
-    margin: 10px 0;
     line-height: 20px;
     &>a {
-      color: #565656;
+      color: @colorWhite;
       text-transform: uppercase;
       text-decoration: none;
       font-family: Helvetica, sans-serif;
-      &:hover {
-        color: #343434;
-      }
     }
   }
 
@@ -151,7 +157,7 @@ body, html {
     }
     &--search {
       width: 64px;
-      height: 70px;
+      height: 50px;
       position: relative;
       background: url("../img/search.png") no-repeat 50% 50%;
       background-size: 40px;
@@ -226,6 +232,44 @@ body, html {
 }
 
 .slider {
+  &__controller {
+    position: fixed;
+    top: 50%;
+    margin-top: -50px;
+    width: 100px;
+    height: 100px;
+    background: none;
+    font-size: 0;
+    border: none;
+    outline: none;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -15px;
+      margin-left: -25px;
+      width: 30px;
+      height: 30px;
+      border-top: 2px solid @colorWhite;
+      border-right: 2px solid @colorWhite;
+      border-radius: 2px;
+      transform: rotate(45deg);
+      cursor: pointer;
+    }
+    &--next {
+      right: 50px;
+    }
+    &--prev {
+      left: 50px;
+      &::before {
+        transform: rotate(-135deg);
+      }
+    }
+    &:active {
+      transform: scale(.9);
+    }
+  }
   &__progressbar {
     display: flex;
     justify-content: center;
@@ -272,7 +316,7 @@ body, html {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 20px;
-    border: 2px solid @colorWhite;
+    border: 1px solid @colorWhite;
     transition: .3s ease all;
     position: relative;
     border-radius: 3px;
@@ -290,7 +334,8 @@ body, html {
 /*********** ФУТЕР ********************/
 #page-footer {
  height: 90px;
- background: rgba(31,31,31, .7);
+ background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)),
+ to(rgba(0,0,0,1)));
  position: fixed;
  bottom: 0;
  width: 100%;
@@ -300,8 +345,12 @@ body, html {
   display: flex;
   justify-content: center;
   list-style: none;
+}
 
-
+.footer__info {
+  text-align: center;
+  color: @colorWhite;
+  font-size: 12px;
 }
 .list {
 
@@ -311,7 +360,7 @@ body, html {
     width: 150px;
     padding-left: 45px;
     filter: invert(100%);
-    transition: .3s ease background-position, .3s ease filter;
+    transition: .1s ease background-position, .3s ease filter;
     &--facebook {
       background: url("../img/facebook.png") no-repeat 5% 50%;
     }

@@ -53,9 +53,8 @@ body, html {
   width: 210px;
   background: url("../img/logo.png") no-repeat center;
   background-size: 210px 24px;
-  filter: invert(100%);
   &:hover {
-    filter: invert(70%);
+    filter: invert(20%);
   }
 }
 
@@ -287,6 +286,62 @@ body, html {
     width: 400px;
   }
 }
+
+/*********** ФУТЕР ********************/
+#page-footer {
+ height: 90px;
+ background: rgba(31,31,31, .7);
+ position: fixed;
+ bottom: 0;
+ width: 100%;
+
+}
+.footer__list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+
+
+}
+.list {
+
+  &__item {
+    height: 35px;
+    line-height: 35px;
+    width: 150px;
+    padding-left: 45px;
+    filter: invert(100%);
+    transition: .3s ease background-position, .3s ease filter;
+    &--facebook {
+      background: url("../img/facebook.png") no-repeat 5% 50%;
+    }
+    &--instagram{
+      background: url("../img/instagram.png") no-repeat 5% 50%;
+    }
+    &--contact{
+      background: url("../img/contact.png") no-repeat 5% 50%;
+      background-size: 24px;
+    }
+    margin: 15px 0;
+    &:not(:first-of-type){
+      margin-left: 50px;
+    }
+    font-size: 20px;
+    &>a {
+      color: #000;
+      text-decoration: none;
+      font-family: Helvetica, sans-serif;
+    }
+
+    &:hover{
+      background-position: 5% 20%;
+      filter: invert(85%);
+    }
+
+  }
+
+  }
+
 
 .search {
   opacity: 0;

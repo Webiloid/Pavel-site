@@ -30,21 +30,17 @@
       <% } %>
       <div class="blog__paginator">
         <ul class="paginator__items">
-        <% if(pageNumber !== 1) {%>
           <li class="paginator__item paginator__controller paginator__item--prev">
-            <a href="/blog/page/<%=pageNumber - 1%>"></a>
+            <a href="/blog/page/<%=pageNumber !== 1 ? pageNumber - 1 : pageNumber%>"></a>
           </li>
-        <%}%>
         <% paginator.map(function(item, index) {%>
           <li class="paginator__item <%= item === pageNumber ? "paginator__item--current" : ""%>">
             <a href="/blog/page/<%=item%>"><%=item%></a>
           </li>
         <%})%>
-        <% if(pageNumber !== pagesCount) {%>
           <li class="paginator__item paginator__controller paginator__item--next">
-            <a href="/blog/page/<%=pageNumber + 1%>"></a>
+            <a href="/blog/page/<%=pageNumber !== pagesCount ? pageNumber + 1 : pageNumber%>"></a>
           </li>
-        <%}%>
         </ul>
       </div>
     </div>
@@ -58,5 +54,4 @@
     </div>
     <button type="button" class="search__close">Закрыть</button>
   </div>
-  <script src="/js/blog.preloading.js"></script>
 </main>

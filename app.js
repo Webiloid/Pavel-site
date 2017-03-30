@@ -1,6 +1,7 @@
 const express = require("express");
 const http = require("http");
 const config = require("./config");
+//const createDb = require("./createDb")();
 const articles = require("./models/article").Article;
 
 const app = express();
@@ -28,7 +29,6 @@ app.get("/blog/page/:number", function(req, res, next) {
 
   let pagesCount = articles.count()
     .then(function(pagesCount) {
-
       pagesCount = Math.ceil(pagesCount / 5);
 
       let pageNumber = parseInt(req.params.number),
@@ -50,8 +50,6 @@ app.get("/blog/page/:number", function(req, res, next) {
           paginator.push(i);
         }
       }
-
-      console.log(paginator);
 
       articles.find().skip((pageNumber - 1) * 5).limit(5)
         .then(function(docs) {

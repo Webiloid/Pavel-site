@@ -57,7 +57,7 @@ schema.methods.getIconClass = function() {
   } else if(this.type === "photoset") {
     return "type__icon--photoset"
   } else if(this.type === "lifestyle") {
-    return "type__icon--travel";
+    return "type__icon--heart";
   }
 };
 exports.Article = mongoose.model("Article", schema);

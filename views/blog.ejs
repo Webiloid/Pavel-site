@@ -1,0 +1,62 @@
+<% layout("./page") %>
+<% block("headerClass", "header--gray"); %>
+<% block("footerClass", "footer--light"); %>
+<main id="page-content">
+  <div class="blog__wrapper wrapper clearfix">
+    <div class="blog">
+      <% for(let i = 0; i < articles.length; i++) {%>
+        <section class="blog__item <%= i % 2 === 0 ? "blog__item--left" : "blog__item--right"%>">
+          <div class="blog__description">
+            <header class="description__header">
+              <div class="blog__postdate">
+                <span class="postdate__icon"></span>
+                <date class="postdate__date"><%=articles[i].getFormattedDate()%></date>
+              </div>
+              <div class="blog__type">
+                <span class="type__icon <%=articles[i].getIconClass()%>"></span>
+                <span class="type__name"><%=articles[i].getFormattedType()%></span>
+              </div>
+              <h2 class="blog__title"><%=articles[i].title%></h2>
+            </header>
+            <p class="description__text">
+              <%=articles[i].text%>
+            </p>
+            <a href="/blog/1" class="blog__readmore">Подробнее</a>
+          </div>
+          <div class="blog__img">
+            <img class="blog__main-image" src="<%=articles[i].title_img%>" alt="Описание к фото" width="380" height="380">
+          </div>
+        </section>
+      <% } %>
+      <div class="blog__paginator">
+        <ul class="paginator__items">
+        <% if(pageNumber !== 1) {%>
+          <li class="paginator__item paginator__controller paginator__item--prev">
+            <a href="/blog/page/<%=pageNumber - 1%>"></a>
+          </li>
+        <%}%>
+        <% paginator.map(function(item, index) {%>
+          <li class="paginator__item <%= item === pageNumber ? "paginator__item--current" : ""%>">
+            <a href="/blog/page/<%=item%>"><%=item%></a>
+          </li>
+        <%})%>
+        <% if(pageNumber !== pagesCount) {%>
+          <li class="paginator__item paginator__controller paginator__item--next">
+            <a href="/blog/page/<%=pageNumber + 1%>"></a>
+          </li>
+        <%}%>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="search">
+    <div class="search__field">
+      <form action="#">
+        <input type="text" id="search__string" placeholder="Что будем искать?">
+        <button type="submit" class="search__go">Поиск</button>
+      </form>
+    </div>
+    <button type="button" class="search__close">Закрыть</button>
+  </div>
+  <script src="/js/blog.preloading.js"></script>
+</main>

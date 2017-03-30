@@ -1,0 +1,210 @@
+// out:header.css, compress:true, sourcemap: false
+
+@import "variables";
+@import "mixins";
+
+#page-header {
+  z-index: 100;
+  width: 100%;
+  height: 50px;
+}
+
+.header {
+  &__logo {
+    float: left;
+    font-size: 0;
+  }
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  &--alpha-gray {
+    background: rgba(51,51,51,.75);
+    .navigation__subitem {
+      background: rgba(51,51,51,.75);
+    }
+  }
+  &--gray {
+    background: @mainThemeGrayColor;
+    .navigation__subitem {
+      background: @mainThemeGrayColor;
+    }
+  }
+}
+
+.page__logo {
+  display: block;
+  height: 50px;
+  width: 210px;
+  background: url("../img/logo.png") no-repeat center;
+  &:hover {
+    filter: invert(20%);
+  }
+  background-size: 210px 25px;
+}
+
+.navigation {
+  .clearfix();
+  float: right;
+  line-height: 50px;
+
+  &__refs, &__list {
+    list-style: none;
+    position: relative;
+    .clearfix();
+  }
+
+  &__refs {
+    float: right;
+  }
+
+  &__sublist, &__list {
+    position: relative;
+    float: left;
+    list-style: none;
+  }
+
+  &__sublist {
+    visibility: hidden;
+    top: 50px;
+    text-align: center;
+    width: 120px;
+    margin-left: -20px;
+    border-top: none;
+    position: absolute;
+  }
+
+  &__subitem-header {
+    &:hover>.navigation__sublist {
+        &>.navigation__subitem {
+          -webkit-transform: translateX(0) skewX(0deg);
+          -moz-transform: translateX(0) skewX(0deg);
+          transform: translateX(0) skewX(0deg);
+          opacity: 1;
+        }
+        visibility: visible;
+    }
+  }
+
+  &__subitem {
+    z-index: 20000;
+    &--1 {
+      transition-delay: .05s;
+    }
+    &--2 {
+      transition-delay: .1s;
+    }
+    &--3 {
+      transition-delay: .15s;
+    }
+    &--4 {
+      transition-delay: .2s;
+    }
+    &--5 {
+      transition-delay: .25s;
+    }
+    &--6 {
+      transition-delay: .3s;
+    }
+    transition: .4s ease transform, .4s ease opacity;
+    opacity: 0;
+    transform: translateX(100px) skewX(-15deg);
+    position: relative;
+    font-size: 14px;
+    padding: 7px;
+    background-color: rgba(51,51,51,.75);
+    &:hover {
+      background: @colorWhite;
+      &>a {
+        color: #343434;
+      }
+    }
+    height: 20px;
+    line-height: 20px;
+    &>a {
+      color: @colorWhite;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-family: Helvetica, sans-serif;
+    }
+  }
+
+  &__item {
+    text-transform: uppercase;
+    position: relative;
+    float: left;
+    margin-left: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    &:active {
+      transform: scale(.95);
+    }
+    &>a{
+      display: block;
+      width: 100%;
+      height: 100%;
+      color: @colorWhite;
+      text-decoration: none;
+      font-family: Helvetica, sans-serif;
+      font-size: 15px;
+    }
+    &:hover>a {
+      color: #ababab;
+    }
+    &--search {
+      width: 64px;
+      height: 50px;
+      position: relative;
+      background: url("../img/search.png") no-repeat 50% 50%;
+      background-size: 40px;
+      font-size: 0;
+      &:hover {
+        filter: invert(20%);
+      }
+    }
+    &--twitter {
+      &>a {
+        font-size: 0;
+        background: url("../img/twitter.png") no-repeat 50% 50%;
+        background-size: 15px;
+      }
+    }
+    &--facebook {
+      &>a {
+        font-size: 0;
+        background: url("../img/facebook.png") no-repeat 50% 50%;
+        background-size: 15px;
+      }
+    }
+    &--vk {
+      &>a {
+        font-size: 0;
+        background: url("../img/vk.png") no-repeat 50% 50%;
+        background-size: 15px;
+      }
+    }
+    &--instagram {
+      &>a {
+        font-size: 0;
+        background: url("../img/instagram.png") no-repeat 50% 50%;
+        background-size: 15px;
+      }
+    }
+    &--ref {
+      transition: .3s ease filter;
+      filter: invert(100%);
+      margin-left: 40px;
+      font-size: 0;
+      &>a {
+        display: block;
+        width: 24px;
+        height: 100%;
+      }
+      &:hover {
+        filter: invert(85%);
+      }
+    }
+  }
+
+}

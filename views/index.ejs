@@ -1,0 +1,49 @@
+<% layout("./page") -%>
+<% block("title", "Фотограф Павел Хмелёв"); -%>
+<% block("headerClass", "header--fixed header--alpha-gray"); %>
+<% block("footerClass", "footer--fixed footer--dark"); %>
+<main id="page-content" style="height: 100%">
+  <div class="slider">
+    <section class="slider__progressbar">
+      <div id="progressbar"></div>
+    </section>
+    <div class="slider__wrapper">
+      <section class="slider__slide slider__section slider__section--1">
+        <div class="section--center">
+          <h2 class="section__title">Блог</h2>
+          <a href="/blog" class="section__ref">Подробнее</a>
+        </div>
+      </section>
+      <section class="slider__slide slider__section slider__section--2">
+        <div class="section--center">
+          <h2 class="section__title">Категории</h2>
+          <a href="" class="section__ref">Подробнее</a>
+        </div>
+      </section>
+      <section class="slider__slide slider__section slider__section--3">
+        <div class="section--center">
+          <h2 class="section__title">Сделать заказ</h2>
+          <a href="" class="section__ref">Подробнее</a>
+        </div>
+      </section>
+      <section class="slider__slide slider__section slider__section--4">
+        <div class="section--center">
+          <h2 class="section__title">Обо мне</h2>
+          <a href="" class="section__ref">Подробнее</a>
+        </div>
+      </section>
+      <button class="slider__controller slider__controller--prev">Предыдущий</button>
+      <button class="slider__controller slider__controller--next">Следующий</button>
+    </div>
+  </div>
+  <div class="search">
+    <div class="search__field">
+      <form action="#">
+        <input type="text" id="search__string" placeholder="Что будем искать?">
+        <button type="submit" class="search__go">Поиск</button>
+      </form>
+    </div>
+    <button type="button" class="search__close">Закрыть</button>
+  </div>
+  <script src="/js/main-page-controllers.js"></script>
+</main>
